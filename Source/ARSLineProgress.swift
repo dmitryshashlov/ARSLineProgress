@@ -267,7 +267,7 @@ private final class ARSInfiniteLoader: ARSLoader {
     init() {
         backgroundView = ARSBlurredBackgroundRect().view
         NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: #selector(ARSInfiniteLoader.orientationChanged(_:)),
+			selector: "orientationChanged:",
             name: UIDeviceOrientationDidChangeNotification,
             object: nil)
     }
@@ -334,7 +334,7 @@ private final class ARSProgressLoader: ARSLoader {
         backgroundView = ARSBlurredBackgroundRect().view
         ARSProgressLoader.weakSelf = self
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: #selector(ARSInfiniteLoader.orientationChanged(_:)),
+            selector: "orientationChanged:",
             name: UIDeviceOrientationDidChangeNotification,
             object: nil)
     }
