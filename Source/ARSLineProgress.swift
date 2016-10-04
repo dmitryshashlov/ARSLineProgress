@@ -233,13 +233,13 @@ private enum ARSLoaderType {
 // MARK: - Shared Constants
 // =====================================================================================================================
 
-private let ARS_BACKGROUND_VIEW_SIDE_LENGTH: CGFloat = 125.0
+private let ARS_BACKGROUND_VIEW_SIDE_LENGTH: CGFloat = 125.0 * 2/3
 
 private let ARS_CIRCLE_ROTATION_TO_VALUE = 2 * CGFloat(M_PI)
 private let ARS_CIRCLE_ROTATION_REPEAT_COUNT = Float(UINT64_MAX)
-private let ARS_CIRCLE_RADIUS_OUTER: CGFloat = 40.0
-private let ARS_CIRCLE_RADIUS_MIDDLE: CGFloat = 30.0
-private let ARS_CIRCLE_RADIUS_INNER: CGFloat = 20.0
+private let ARS_CIRCLE_RADIUS_OUTER: CGFloat = 40.0 * 2/3
+private let ARS_CIRCLE_RADIUS_MIDDLE: CGFloat = 30.0 * 2/3
+private let ARS_CIRCLE_RADIUS_INNER: CGFloat = 20.0 * 2/3
 private let ARS_CIRCLE_LINE_WIDTH: CGFloat = 2.0
 private let ARS_CIRCLE_START_ANGLE: CGFloat = -CGFloat(M_PI_2)
 private let ARS_CIRCLE_END_ANGLE: CGFloat = 0.0
@@ -768,7 +768,14 @@ private func ars_createdFrameForBackgroundView(backgroundView: UIView, onView vi
     }
     
     let sideLengths = ARS_BACKGROUND_VIEW_SIDE_LENGTH
-    backgroundView.frame = CGRectMake(center.x - sideLengths / 2, center.y - sideLengths / 2, sideLengths, sideLengths)
+    
+    // TABLET
+    if case .Pad = UIDevice.currentDevice().userInterfaceIdiom {
+        backgroundView.frame = CGRectMake(130.0 + center.x - sideLengths / 2, center.y + center.y / 2 - sideLengths / 2, sideLengths, sideLengths)
+    } else {
+        backgroundView.frame = CGRectMake(center.x - sideLengths / 2, center.y + center.y / 2 - sideLengths / 2, sideLengths, sideLengths)
+    }
+    
     backgroundView.layer.cornerRadius = ars_config.backgroundViewCornerRadius
     
     return true
