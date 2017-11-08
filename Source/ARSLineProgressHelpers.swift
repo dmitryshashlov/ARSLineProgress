@@ -53,8 +53,12 @@ func ars_window() -> UIWindow? {
 	let sideLengths = ARS_BACKGROUND_VIEW_SIDE_LENGTH
 	
 	switch ars_config.backgroundViewStyle {
-	case .blur, .simple:
-		backgroundView.frame = CGRect(x: center.x - sideLengths / 2, y: center.y - sideLengths / 2, width: sideLengths, height: sideLengths)
+    case .blur, .simple:
+        if case .pad = UIDevice.current.userInterfaceIdiom {
+            backgroundView.frame = CGRect(x: 130.0 + center.x - sideLengths / 2, y: center.y + center.y / 2 - sideLengths / 2, width: sideLengths, height: sideLengths)
+        } else {
+            backgroundView.frame = CGRect(x: center.x - sideLengths / 2, y: center.y - sideLengths / 2, width: sideLengths, height: sideLengths)
+        }
 		backgroundView.layer.cornerRadius = ars_config.backgroundViewCornerRadius
 	case .full:
 		backgroundView.frame = CGRect(x: bounds.minX, y: bounds.minY, width: bounds.width, height: bounds.height)
